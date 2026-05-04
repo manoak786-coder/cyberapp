@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/cyberapp/static/css/main.827be808.css",
+    "main.js": "/cyberapp/static/js/main.a6ba95c2.js",
+    "static/js/453.dc3c8b41.chunk.js": "/cyberapp/static/js/453.dc3c8b41.chunk.js",
+    "index.html": "/cyberapp/index.html",
+    "main.827be808.css.map": "/cyberapp/static/css/main.827be808.css.map",
+    "main.a6ba95c2.js.map": "/cyberapp/static/js/main.a6ba95c2.js.map",
+    "453.dc3c8b41.chunk.js.map": "/cyberapp/static/js/453.dc3c8b41.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.827be808.css",
+    "static/js/main.a6ba95c2.js"
+  ]
+}
