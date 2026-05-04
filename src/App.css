@@ -13,6 +13,129 @@ select {
   font-family: inherit;
 }
 
+@media (pointer: fine) {
+  body,
+  button,
+  input,
+  textarea,
+  select {
+    cursor: none;
+  }
+}
+
+.cyber-cursor {
+  --cursor-x: 0px;
+  --cursor-y: 0px;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  transform: translate3d(var(--cursor-x), var(--cursor-y), 0);
+  transition: opacity 160ms ease;
+  z-index: 9999;
+}
+
+.cyber-cursor.is-visible {
+  opacity: 1;
+}
+
+.cyber-cursor__ring,
+.cyber-cursor__dot,
+.cyber-cursor__scan {
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
+.cyber-cursor__ring {
+  animation: cursor-glitch 1.8s steps(2, end) infinite;
+  border: 1px solid #00ff88;
+  border-radius: 50%;
+  box-shadow:
+    0 0 12px rgba(0, 255, 136, 0.9),
+    inset 0 0 10px rgba(0, 204, 255, 0.28);
+  height: 34px;
+  transform: translate(-50%, -50%);
+  width: 34px;
+}
+
+.cyber-cursor__ring::before,
+.cyber-cursor__ring::after {
+  border-radius: 50%;
+  content: "";
+  inset: 5px;
+  position: absolute;
+}
+
+.cyber-cursor__ring::before {
+  border: 1px dashed rgba(0, 204, 255, 0.75);
+  animation: cursor-spin 2.4s linear infinite;
+}
+
+.cyber-cursor__ring::after {
+  border-left: 2px solid rgba(255, 255, 255, 0.85);
+  border-right: 2px solid rgba(0, 255, 136, 0.75);
+  filter: blur(0.2px);
+}
+
+.cyber-cursor__dot {
+  background: #00ff88;
+  border-radius: 50%;
+  box-shadow:
+    0 0 10px #00ff88,
+    9px 4px 0 -3px rgba(0, 204, 255, 0.85),
+    -8px -5px 0 -3px rgba(255, 68, 136, 0.7);
+  height: 6px;
+  transform: translate(-50%, -50%);
+  width: 6px;
+}
+
+.cyber-cursor__scan {
+  animation: cursor-pulse 900ms ease-out infinite;
+  border: 1px solid rgba(0, 204, 255, 0.5);
+  border-radius: 50%;
+  height: 54px;
+  transform: translate(-50%, -50%);
+  width: 54px;
+}
+
+@keyframes cursor-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes cursor-pulse {
+  0% {
+    opacity: 0.55;
+    transform: translate(-50%, -50%) scale(0.68);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.24);
+  }
+}
+
+@keyframes cursor-glitch {
+  0%,
+  88%,
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+
+  90% {
+    clip-path: inset(0 0 58% 0);
+    transform: translate(calc(-50% + 2px), calc(-50% - 1px));
+  }
+
+  94% {
+    clip-path: inset(48% 0 0 0);
+    transform: translate(calc(-50% - 2px), calc(-50% + 1px));
+  }
+}
+
 .quiz-page {
   align-items: center;
   display: flex;

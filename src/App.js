@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import Login from "./Login";
+import "./App.css";
 
 const TEACHER_PASSWORD = "teacher123";
 const TIME_PER_Q = 86;
@@ -183,6 +184,44 @@ function CircleTimer({ seconds, total }) {
       <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", color: stroke, fontSize: "15px", fontWeight: "900" }}>
         {seconds}
       </div>
+    </div>
+  );
+}
+
+function CyberCursor() {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (typeof window.matchMedia !== "function") return undefined;
+
+    const mediaQuery = window.matchMedia("(pointer: fine)");
+    if (!mediaQuery.matches) return undefined;
+
+    const handleMove = (event) => {
+      setPosition({ x: event.clientX, y: event.clientY });
+      setVisible(true);
+    };
+    const handleLeave = () => setVisible(false);
+
+    window.addEventListener("pointermove", handleMove);
+    document.documentElement.addEventListener("mouseleave", handleLeave);
+
+    return () => {
+      window.removeEventListener("pointermove", handleMove);
+      document.documentElement.removeEventListener("mouseleave", handleLeave);
+    };
+  }, []);
+
+  return (
+    <div
+      className={visible ? "cyber-cursor is-visible" : "cyber-cursor"}
+      style={{ "--cursor-x": `${position.x}px`, "--cursor-y": `${position.y}px` }}
+      aria-hidden="true"
+    >
+      <span className="cyber-cursor__ring" />
+      <span className="cyber-cursor__dot" />
+      <span className="cyber-cursor__scan" />
     </div>
   );
 }
@@ -476,18 +515,21 @@ export default function App() {
   }
 
   const BG = () => (
-    <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 0,
-        backgroundImage: `radial-gradient(circle at 15% 15%, rgba(0,255,136,0.04) 0%, transparent 50%),
-          radial-gradient(circle at 85% 85%, rgba(0,150,255,0.04) 0%, transparent 50%),
-          linear-gradient(rgba(255,255,255,0.012) 1px,transparent 1px),
-          linear-gradient(90deg,rgba(255,255,255,0.012) 1px,transparent 1px)`,
-        backgroundSize: "100% 100%,100% 100%,35px 35px,35px 35px",
-      }}
-    />
+    <>
+      <div
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 0,
+          backgroundImage: `radial-gradient(circle at 15% 15%, rgba(0,255,136,0.04) 0%, transparent 50%),
+            radial-gradient(circle at 85% 85%, rgba(0,150,255,0.04) 0%, transparent 50%),
+            linear-gradient(rgba(255,255,255,0.012) 1px,transparent 1px),
+            linear-gradient(90deg,rgba(255,255,255,0.012) 1px,transparent 1px)`,
+          backgroundSize: "100% 100%,100% 100%,35px 35px,35px 35px",
+        }}
+      />
+      <CyberCursor />
+    </>
   );
 
   const Card = ({ children, style = {} }) => (
